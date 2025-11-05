@@ -94,6 +94,27 @@ The `iita` function returns a list with:
 - `nq`: Number of quasi-orders
 - `error.rate`: Error rates for each quasi-order
 
+## Testing
+
+For comprehensive testing instructions, see [TESTING.md](TESTING.md). Quick test:
+
+```r
+# Install test dependencies
+install.packages(c("testthat", "devtools"))
+
+# Run all tests
+library(testthat)
+library(iita.na)
+test_package("iita.na")
+```
+
+Or using R CMD check:
+
+```bash
+R CMD build .
+R CMD check --as-cran iita.na_0.1.0.tar.gz
+```
+
 ## References
 
 - Original DAKS package: https://cran.r-project.org/package=DAKS
