@@ -13,6 +13,7 @@ Description: An adaptation of the IITA (Inductive Item Tree Analysis) function
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: xz
 Depends: R (>= 3.5.0)
 Imports: stats
 Suggests: 
