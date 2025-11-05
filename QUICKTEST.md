@@ -49,6 +49,26 @@ R CMD check --as-cran iita.na_0.1.0.tar.gz
 
 Expected result: **Status: OK**
 
+## Validation Against DAKS
+
+To validate missing data handling and compare with DAKS:
+
+```r
+# See VALIDATION.md for complete scripts
+library(DAKS)
+library(iita.na)
+
+# Quick comparison
+data <- matrix(c(0,0,0, 1,0,0, 1,1,0, 1,1,1), ncol=3, byrow=TRUE)
+daks_result <- DAKS::iita(data, v=1)
+iita_result <- iita(data)
+
+# Should be identical for complete data
+all(abs(daks_result$diff - iita_result$diff) < 1e-10)
+```
+
+See **[VALIDATION.md](VALIDATION.md)** for comprehensive validation tests.
+
 ## CI/CD Testing
 
 The package includes GitHub Actions workflow for automated testing across:

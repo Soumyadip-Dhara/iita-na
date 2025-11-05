@@ -2,6 +2,8 @@
 
 This guide provides comprehensive instructions on how to test the `iita.na` R package, including installation, running tests, and manual verification.
 
+**For validation against DAKS and missing data verification, see [VALIDATION.md](VALIDATION.md).**
+
 ## Table of Contents
 
 1. [Prerequisites](#prerequisites)

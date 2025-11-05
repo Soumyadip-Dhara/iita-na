@@ -115,6 +115,13 @@ R CMD build .
 R CMD check --as-cran iita.na_0.1.0.tar.gz
 ```
 
+## Validation
+
+To validate that iita.na handles missing data correctly and produces identical results to DAKS for complete data, see [VALIDATION.md](VALIDATION.md). This includes:
+- Missing data handling verification
+- Direct comparison with DAKS package
+- Complete validation scripts
+
 ## References
 
 - Original DAKS package: https://cran.r-project.org/package=DAKS
