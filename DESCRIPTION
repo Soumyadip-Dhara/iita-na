@@ -1,0 +1,20 @@
+Package: iita.na
+Type: Package
+Title: Inductive Item Tree Analysis with Missing Data Support
+Version: 0.1.0
+Authors@R: c(
+    person("Soumyadip", "Dhara", email = "soumyadip.dhara@example.com", role = c("aut", "cre"))
+    )
+Description: An adaptation of the IITA (Inductive Item Tree Analysis) function 
+    from the DAKS package that supports datasets with missing values. For complete
+    data, the function produces identical results to the original DAKS implementation.
+    IITA is a data analysis method for deriving quasi-orders from binary data matrices
+    in knowledge space theory.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5.0)
+Imports: stats
+Suggests: 
+    testthat (>= 3.0.0)
+RoxygenNote: 7.3.1
