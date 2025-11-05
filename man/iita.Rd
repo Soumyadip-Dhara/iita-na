@@ -26,6 +26,7 @@ A list with the following components:
   \item{ni}{Number of items}
   \item{nq}{Number of quasi-orders}
   \item{error.rate}{Error rates for each quasi-order}
+  \item{selrule}{Selection rule used ("minimal" or "corrected")}
 }
 \description{
 This function performs inductive item tree analysis (IITA) on binary data

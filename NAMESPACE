@@ -1,4 +1,4 @@
 export(iita)
 export(generate_quasiorders)
 export(compute_diff_na)
-importFrom(stats, na.omit)
+S3method(print, iita)

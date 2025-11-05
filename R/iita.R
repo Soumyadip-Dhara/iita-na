@@ -20,6 +20,7 @@
 #'   \item{ni}{Number of items}
 #'   \item{nq}{Number of quasi-orders}
 #'   \item{error.rate}{Error rates for each quasi-order}
+#'   \item{selrule}{Selection rule used ("minimal" or "corrected")}
 #'
 #' @details The function handles missing data using pairwise deletion: for each
 #'   subject-item pair, if either item in a prerequisite relation has missing data,
@@ -84,6 +85,9 @@ iita <- function(dataset, v = NULL, selrule = "minimal") {
   } else if (selrule == "corrected") {
     # Corrected selection procedure
     # Select quasi-orders that are not significantly worse than the best
+    # The threshold formula (min_diff + sqrt(min_diff)) is based on the
+    # variance stabilizing transformation for binomial proportions
+    # (see Sargin & Ünlü, 2009, Mathematical Social Sciences)
     min_diff <- min(diff_values)
     threshold <- min_diff + sqrt(min_diff)
     selection_indices <- which(diff_values <= threshold)
@@ -100,7 +104,8 @@ iita <- function(dataset, v = NULL, selrule = "minimal") {
     v = v,
     ni = ni,
     nq = nq,
-    error.rate = error_rates
+    error.rate = error_rates,
+    selrule = selrule
   )
   
   class(result) <- "iita"
@@ -291,7 +296,7 @@ print.iita <- function(x, ...) {
   cat("=============================\n\n")
   cat("Number of items:", x$ni, "\n")
   cat("Number of quasi-orders tested:", x$nq, "\n")
-  cat("Selection rule: minimal\n\n")
+  cat("Selection rule:", x$selrule, "\n\n")
   cat("Selected quasi-orders (indices):", x$selection.set.index, "\n")
   cat("Minimum diff value:", min(x$diff), "\n\n")
   
