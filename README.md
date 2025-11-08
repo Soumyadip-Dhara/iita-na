@@ -94,6 +94,33 @@ The `iita` function returns a list with:
 - `nq`: Number of quasi-orders
 - `error.rate`: Error rates for each quasi-order
 
+## Testing
+
+For comprehensive testing instructions, see [TESTING.md](TESTING.md). Quick test:
+
+```r
+# Install test dependencies
+install.packages(c("testthat", "devtools"))
+
+# Run all tests
+library(testthat)
+library(iita.na)
+test_package("iita.na")
+```
+
+Or using R CMD check:
+
+```bash
+R CMD build .
+R CMD check --as-cran iita.na_0.1.0.tar.gz
+```
+
+## Validation
+
+To validate that iita.na handles missing data correctly and produces identical results to DAKS for complete data, see [VALIDATION.md](VALIDATION.md). This includes:
+- Missing data handling verification
+- Direct comparison with DAKS package
+- Complete validation scripts
 ## DAKS Compatibility
 
 **For datasets without missing values, this package produces exactly the same results as the DAKS package.**

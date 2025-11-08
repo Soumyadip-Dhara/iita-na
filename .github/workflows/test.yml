@@ -1,0 +1,63 @@
+name: R Package Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        r-version: ['3.6', '4.0', '4.2']
+    
+    name: ${{ matrix.os }} (R ${{ matrix.r-version }})
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup R
+      uses: r-lib/actions/setup-r@v2
+      with:
+        r-version: ${{ matrix.r-version }}
+    
+    - name: Install system dependencies (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libcurl4-openssl-dev
+    
+    - name: Install R dependencies
+      run: |
+        install.packages(c("testthat", "roxygen2"))
+      shell: Rscript {0}
+    
+    - name: Build package
+      run: R CMD build .
+    
+    - name: Install package
+      run: R CMD INSTALL iita.na_*.tar.gz
+    
+    - name: Run tests
+      run: |
+        library(testthat)
+        library(iita.na)
+        test_results <- test_package("iita.na")
+        if (any(as.data.frame(test_results)$failed > 0)) {
+          stop("Some tests failed!")
+        }
+      shell: Rscript {0}
+    
+    - name: Check package
+      run: R CMD check --no-manual --as-cran iita.na_*.tar.gz
+    
+    - name: Upload check results
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.os }}-r${{ matrix.r-version }}-results
+        path: iita.na.Rcheck/

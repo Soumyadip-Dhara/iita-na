@@ -50,7 +50,9 @@ print(result)
 
 ## Running Tests
 
-To run the package test suite:
+For comprehensive testing instructions, see **[TESTING.md](TESTING.md)**.
+
+Quick test from command line:
 
 ```bash
 cd iita-na
@@ -64,6 +66,14 @@ library(testthat)
 library(iita.na)
 test_package("iita.na")
 ```
+
+The test suite includes 13 comprehensive tests covering:
+- Complete data scenarios
+- Missing data handling
+- Edge cases
+- Input validation
+- Selection rules
+- Helper functions
 
 ## Building Documentation
 
