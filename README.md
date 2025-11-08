@@ -110,6 +110,8 @@ See [DAKS_COMPATIBILITY.md](DAKS_COMPATIBILITY.md) for comprehensive documentati
 - Validation procedures
 - Theoretical justification
 
+**Quick validation**: Run `source("examples/validate_daks_compatibility.R")` to verify implementation correctness with automated tests.
+
 ## References
 
 - Original DAKS package: https://cran.r-project.org/package=DAKS

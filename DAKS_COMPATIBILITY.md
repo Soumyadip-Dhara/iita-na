@@ -277,6 +277,30 @@ For complete data D with no NA values:
 
 ## Testing Compatibility
 
+### Automated Validation Script
+
+An automated validation script is provided in `examples/validate_daks_compatibility.R` that runs comprehensive tests to verify the implementation correctness.
+
+To run the validation:
+
+```r
+# If iita.na is installed
+source("examples/validate_daks_compatibility.R")
+
+# Or load functions directly from source
+source("R/iita.R")
+source("R/data.R")
+# Then run validation tests
+```
+
+The script validates:
+- Perfect prerequisite structures (diff = 0)
+- Violation counting accuracy
+- Deterministic behavior
+- Selection rules
+- Edge cases
+- Example datasets
+
 ### Manual Verification Steps
 
 If you have both packages installed, you can verify compatibility:
