@@ -72,7 +72,7 @@ result <- iita(data, selrule = "corrected")
 ## Features
 
 - **Missing Data Support**: Handles NA values using pairwise deletion
-- **Backward Compatibility**: Produces identical results to DAKS for complete data
+- **Backward Compatibility**: Produces identical results to DAKS for complete data ([see detailed documentation](DAKS_COMPATIBILITY.md))
 - **Multiple Selection Rules**: Supports both minimal and corrected selection
 - **Comprehensive Testing**: Includes extensive test suite
 
@@ -121,6 +121,23 @@ To validate that iita.na handles missing data correctly and produces identical r
 - Missing data handling verification
 - Direct comparison with DAKS package
 - Complete validation scripts
+## DAKS Compatibility
+
+**For datasets without missing values, this package produces exactly the same results as the DAKS package.**
+
+This compatibility is achieved through:
+- Identical algorithm implementation for the core IITA method
+- Same diff value calculations for complete data
+- Same selection rules (minimal and corrected)
+- Pairwise deletion that becomes transparent when no data is missing
+
+See [DAKS_COMPATIBILITY.md](DAKS_COMPATIBILITY.md) for comprehensive documentation including:
+- Mathematical proof of equivalence
+- Code comparison examples
+- Validation procedures
+- Theoretical justification
+
+**Quick validation**: Run `source("examples/validate_daks_compatibility.R")` to verify implementation correctness with automated tests.
 
 ## References
 

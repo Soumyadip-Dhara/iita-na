@@ -156,6 +156,8 @@ All validation tests passed successfully:
 
 **Key Advantage**: iita.na handles missing data gracefully while maintaining full compatibility with DAKS for complete data.
 
+**Compatibility Documentation**: For detailed information on how iita.na produces identical results to DAKS for complete data, see [DAKS_COMPATIBILITY.md](DAKS_COMPATIBILITY.md).
+
 ## References
 
 - Sargin, A., & Ünlü, A. (2009). Inductive item tree analysis: Corrections, improvements, and comparisons. *Mathematical Social Sciences*, 58(3), 376-392.
