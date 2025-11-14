@@ -12,7 +12,7 @@ test_that("iita produces consistent results for complete data - simple case", {
     1, 1, 1   # Passed all
   ), ncol = 3, byrow = TRUE)
   
-  result <- iita(data)
+  result <- iita_na(data)
   
   # For this perfect data, the best quasi-order should have diff = 0
   expect_equal(min(result$diff), 0)
@@ -36,7 +36,7 @@ test_that("iita handles violations correctly in complete data", {
     1, 1   # Both passed
   ), ncol = 2, byrow = TRUE)
   
-  result <- iita(data)
+  result <- iita_na(data)
   
   # The empty quasi-order (no prerequisites) should have diff = 0
   # because there are no prerequisites to violate
@@ -60,7 +60,7 @@ test_that("iita minimal selection rule works correctly", {
     1, 1, 1
   ), ncol = 3, byrow = TRUE)
   
-  result <- iita(data, selrule = "minimal")
+  result <- iita_na(data, selrule = "minimal")
   
   # Should select only quasi-orders with minimum diff
   min_diff <- min(result$diff)
@@ -77,7 +77,7 @@ test_that("iita corrected selection rule works correctly", {
     1, 1, 1
   ), ncol = 3, byrow = TRUE)
   
-  result <- iita(data, selrule = "corrected")
+  result <- iita_na(data, selrule = "corrected")
   
   # Should select quasi-orders within threshold
   min_diff <- min(result$diff)
@@ -86,7 +86,7 @@ test_that("iita corrected selection rule works correctly", {
   expect_equal(sort(result$selection.set.index), sort(expected_indices))
   
   # Corrected should select at least as many as minimal
-  result_minimal <- iita(data, selrule = "minimal")
+  result_minimal <- iita_na(data, selrule = "minimal")
   expect_true(length(result$selection.set.index) >= length(result_minimal$selection.set.index))
 })
 
@@ -153,26 +153,26 @@ test_that("iita handles edge case: all subjects pass all items", {
   # All subjects passed all items
   data <- matrix(1, nrow = 5, ncol = 3)
   
-  result <- iita(data)
+  result <- iita_na(data)
   
   # No violations possible, all diff values should be 0
   expect_true(all(result$diff == 0))
   
   # Should work without errors
-  expect_s3_class(result, "iita")
+  expect_s3_class(result, "iita_na")
 })
 
 test_that("iita handles edge case: all subjects fail all items", {
   # All subjects failed all items
   data <- matrix(0, nrow = 5, ncol = 3)
   
-  result <- iita(data)
+  result <- iita_na(data)
   
   # No violations possible (no one passed anything), all diff values should be 0
   expect_true(all(result$diff == 0))
   
   # Should work without errors
-  expect_s3_class(result, "iita")
+  expect_s3_class(result, "iita_na")
 })
 
 test_that("iita with complete data never uses pairwise deletion logic", {
@@ -189,7 +189,7 @@ test_that("iita with complete data never uses pairwise deletion logic", {
   # Verify no missing data
   expect_equal(sum(is.na(data)), 0)
   
-  result <- iita(data)
+  result <- iita_na(data)
   
   # Create quasi-order for testing
   qo <- matrix(c(0, 1, 0, 0, 0, 1, 0, 0, 0), nrow = 3, ncol = 3)
@@ -228,9 +228,9 @@ test_that("iita example datasets work correctly", {
   expect_equal(sum(is.na(knowledge_complete)), 0)
   
   # Should run without errors
-  result <- iita(knowledge_complete)
+  result <- iita_na(knowledge_complete)
   
-  expect_s3_class(result, "iita")
+  expect_s3_class(result, "iita_na")
   expect_equal(result$ni, ncol(knowledge_complete))
   expect_true(length(result$diff) > 0)
   expect_true(all(result$diff >= 0 & result$diff <= 1))

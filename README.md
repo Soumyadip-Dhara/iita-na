@@ -24,6 +24,7 @@ install.packages("path/to/iita.na", repos = NULL, type = "source")
 
 ```r
 library(iita.na)
+# Note: The main function is iita_na() to avoid conflicts with the DAKS package
 
 # Create a binary response matrix (subjects x items)
 # 1 = item passed, 0 = item failed
@@ -35,7 +36,7 @@ data <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # Run IITA analysis
-result <- iita(data)
+result <- iita_na(data)
 
 # View results
 print(result)
@@ -53,7 +54,7 @@ data_na <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # Run IITA analysis - missing values are handled automatically
-result_na <- iita(data_na)
+result_na <- iita_na(data_na)
 print(result_na)
 ```
 
@@ -66,7 +67,7 @@ The `iita` function supports two selection rules:
 
 ```r
 # Using corrected selection rule
-result <- iita(data, selrule = "corrected")
+result <- iita_na(data, selrule = "corrected")
 ```
 
 ## Features

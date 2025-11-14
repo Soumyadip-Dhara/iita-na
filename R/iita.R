@@ -26,17 +26,23 @@
 #'   subject-item pair, if either item in a prerequisite relation has missing data,
 #'   that pair is excluded from the diff calculation for that relation.
 #'
+#'   Note: Multiple quasi-orders may be selected when they fit the data equally well
+#'   (same diff value). This is standard IITA behavior. A quasi-order with fewer
+#'   relations can have the same fit as one with more relations because relations
+#'   not in the quasi-order are simply not tested, rather than being tested and
+#'   found to be violated.
+#'
 #' @examples
 #' # Example with complete data
 #' data <- matrix(c(1,1,0,0,1,1,1,0,0,0,1,1), ncol=3, byrow=TRUE)
-#' result <- iita(data)
+#' result <- iita_na(data)
 #' 
 #' # Example with missing data
 #' data_na <- matrix(c(1,1,0,0,NA,1,1,0,NA,0,1,1), ncol=3, byrow=TRUE)
-#' result_na <- iita(data_na)
+#' result_na <- iita_na(data_na)
 #'
 #' @export
-iita <- function(dataset, v = NULL, selrule = "minimal") {
+iita_na <- function(dataset, v = NULL, selrule = "minimal") {
   
   # Convert to matrix if data.frame
   if (is.data.frame(dataset)) {
@@ -108,7 +114,7 @@ iita <- function(dataset, v = NULL, selrule = "minimal") {
     selrule = selrule
   )
   
-  class(result) <- "iita"
+  class(result) <- "iita_na"
   return(result)
 }
 
@@ -287,11 +293,11 @@ compute_diff_na <- function(dataset, quasiorder) {
 
 #' Print Method for IITA Objects
 #'
-#' @param x An object of class "iita"
+#' @param x An object of class "iita_na"
 #' @param ... Additional arguments (not used)
 #'
 #' @export
-print.iita <- function(x, ...) {
+print.iita_na <- function(x, ...) {
   cat("Inductive Item Tree Analysis\n")
   cat("=============================\n\n")
   cat("Number of items:", x$ni, "\n")

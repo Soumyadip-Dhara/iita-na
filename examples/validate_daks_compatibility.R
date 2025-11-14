@@ -38,7 +38,7 @@ test1_data <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 cat("Data pattern shows clear hierarchy: 1 -> 2 -> 3\n")
-result1 <- iita(test1_data)
+result1 <- iita_na(test1_data)
 
 cat("Results:\n")
 cat("  - Minimum diff value: ", min(result1$diff), "\n")
@@ -77,9 +77,9 @@ test3_data <- matrix(c(
   0, 1, 0
 ), ncol = 3, byrow = TRUE)
 
-result3a <- iita(test3_data)
-result3b <- iita(test3_data)
-result3c <- iita(test3_data)
+result3a <- iita_na(test3_data)
+result3b <- iita_na(test3_data)
+result3c <- iita_na(test3_data)
 
 diff_match <- all.equal(result3a$diff, result3b$diff) && 
               all.equal(result3a$diff, result3c$diff)
@@ -101,8 +101,8 @@ test4_data <- matrix(c(
   1, 1, 1
 ), ncol = 3, byrow = TRUE)
 
-result_minimal <- iita(test4_data, selrule = "minimal")
-result_corrected <- iita(test4_data, selrule = "corrected")
+result_minimal <- iita_na(test4_data, selrule = "minimal")
+result_corrected <- iita_na(test4_data, selrule = "corrected")
 
 min_diff <- min(result_minimal$diff)
 threshold <- min_diff + sqrt(min_diff)
@@ -121,12 +121,12 @@ cat("------------------\n")
 
 # All pass
 all_pass <- matrix(1, nrow = 4, ncol = 3)
-result_pass <- iita(all_pass)
+result_pass <- iita_na(all_pass)
 pass_test <- all(result_pass$diff == 0)
 
 # All fail
 all_fail <- matrix(0, nrow = 4, ncol = 3)
-result_fail <- iita(all_fail)
+result_fail <- iita_na(all_fail)
 fail_test <- all(result_fail$diff == 0)
 
 cat("Results:\n")
@@ -143,7 +143,7 @@ data(knowledge_complete)
 no_missing <- sum(is.na(knowledge_complete)) == 0
 
 # Run analysis
-result_complete <- iita(knowledge_complete)
+result_complete <- iita_na(knowledge_complete)
 
 # Check output structure
 has_diff <- !is.null(result_complete$diff)
@@ -197,7 +197,7 @@ if (has_daks) {
   
   tryCatch({
     result_daks <- DAKS::iita(comparison_data)
-    result_iitana <- iita.na::iita(comparison_data)
+    result_iitana <- iita.na::iita_na(comparison_data)
     
     cat("Comparison results:\n")
     cat("  - Diff values match: ", 
