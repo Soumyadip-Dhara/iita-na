@@ -140,6 +140,9 @@ This package includes comprehensive testing for:
 ```r
 # Generate and run comprehensive test report
 source("examples/generate_test_report.R")
+
+# Compare with DAKS on PISA dataset (requires DAKS package)
+source("examples/compare_with_daks_pisa.R")
 ```
 
 ### Documentation
@@ -147,6 +150,7 @@ source("examples/generate_test_report.R")
 - **[TESTING.md](TESTING.md)**: Comprehensive testing documentation with detailed findings
 - **[STEP_BY_STEP_TESTING_GUIDE.md](STEP_BY_STEP_TESTING_GUIDE.md)**: Complete guide from cloning to test results
 - **[DAKS_COMPATIBILITY.md](DAKS_COMPATIBILITY.md)**: Detailed DAKS compatibility verification
+- **[PISA_COMPARISON_GUIDE.md](PISA_COMPARISON_GUIDE.md)**: Guide for comparing with DAKS on PISA dataset
 
 ### Key Findings
 
