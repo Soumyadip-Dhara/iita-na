@@ -138,9 +138,9 @@ test_that("iita produces deterministic results", {
     0, 1, 0
   ), ncol = 3, byrow = TRUE)
   
-  result1 <- iita(data)
-  result2 <- iita(data)
-  result3 <- iita(data)
+  result1 <- iita_na(data)
+  result2 <- iita_na(data)
+  result3 <- iita_na(data)
   
   # All results should be identical
   expect_equal(result1$diff, result2$diff)

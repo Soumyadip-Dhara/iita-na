@@ -97,7 +97,7 @@ result_missing <- iita_na(knowledge_missing)
 
 # Compare with complete data results
 data(knowledge_complete)
-result_complete <- iita(knowledge_complete)
+result_complete <- iita_na(knowledge_complete)
 
 cat("\nComparison:\n")
 cat("Complete data - selected quasi-orders:", 
@@ -117,12 +117,12 @@ library(iita.na)
 data(knowledge_complete)
 
 # Minimal selection rule (default)
-result_minimal <- iita(knowledge_complete, selrule = "minimal")
+result_minimal <- iita_na(knowledge_complete, selrule = "minimal")
 cat("Minimal rule selected:", length(result_minimal$selection.set.index), 
     "quasi-orders\n")
 
 # Corrected selection rule (more permissive)
-result_corrected <- iita(knowledge_complete, selrule = "corrected")
+result_corrected <- iita_na(knowledge_complete, selrule = "corrected")
 cat("Corrected rule selected:", length(result_corrected$selection.set.index), 
     "quasi-orders\n")
 ```
