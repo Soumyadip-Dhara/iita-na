@@ -6,8 +6,9 @@
 #'
 #' @param dataset A binary data matrix or data frame where rows represent subjects
 #'   and columns represent items. Entries should be 0, 1, or NA (missing).
-#' @param v A vector of competing quasi-orders to test. If NULL (default), all
-#'   possible quasi-orders are generated.
+#' @param v A list of quasi-order matrices to test. Each matrix should be a binary
+#'   matrix of size ni x ni where ni is the number of items. If NULL (default), 
+#'   all possible quasi-orders are generated automatically.
 #' @param selrule Selection rule for choosing quasi-orders. Options are:
 #'   "minimal" (default) selects quasi-orders with minimal diff values,
 #'   "corrected" applies a corrected selection procedure.
@@ -69,6 +70,19 @@ iita_na <- function(dataset, v = NULL, selrule = "minimal") {
   # Generate all quasi-orders if not provided
   if (is.null(v)) {
     v <- generate_quasiorders(ni)
+  } else {
+    # Validate v parameter
+    if (!is.list(v)) {
+      stop("v must be NULL or a list of quasi-order matrices")
+    }
+    # Check that each element is a matrix
+    if (!all(sapply(v, is.matrix))) {
+      stop("v must be a list of matrices representing quasi-orders")
+    }
+    # Check that all matrices have the correct dimensions
+    if (!all(sapply(v, function(m) nrow(m) == ni && ncol(m) == ni))) {
+      stop("All quasi-order matrices in v must have dimensions matching the number of items (", ni, "x", ni, ")")
+    }
   }
   
   nq <- length(v)  # number of quasi-orders
@@ -328,21 +342,29 @@ print.iita_na <- function(x, ...) {
     cat("Multiple quasi-orders selected. Use $implications to view.\n")
     
     # Show the most complex selected quasi-order as a suggestion
-    complexities <- sapply(x$implications, sum)
-    most_complex_idx <- which.max(complexities)
-    if (complexities[most_complex_idx] > 0) {
-      cat("\nMost complex selected quasi-order (index", 
-          x$selection.set.index[most_complex_idx], 
-          ") with", complexities[most_complex_idx], "relations:\n")
-      qo <- x$implications[[most_complex_idx]]
-      for (i in 1:nrow(qo)) {
-        for (j in 1:ncol(qo)) {
-          if (qo[i, j] == 1) {
-            cat(sprintf("  Item %d -> Item %d\n", i, j))
+    tryCatch({
+      # Check that implications is a list of matrices
+      if (is.list(x$implications) && all(sapply(x$implications, is.matrix))) {
+        complexities <- sapply(x$implications, sum)
+        most_complex_idx <- which.max(complexities)
+        if (complexities[most_complex_idx] > 0) {
+          cat("\nMost complex selected quasi-order (index", 
+              x$selection.set.index[most_complex_idx], 
+              ") with", complexities[most_complex_idx], "relations:\n")
+          qo <- x$implications[[most_complex_idx]]
+          for (i in 1:nrow(qo)) {
+            for (j in 1:ncol(qo)) {
+              if (qo[i, j] == 1) {
+                cat(sprintf("  Item %d -> Item %d\n", i, j))
+              }
+            }
           }
         }
       }
-    }
+    }, error = function(e) {
+      # If there's an error displaying the most complex quasi-order, 
+      # silently continue (user can still access via $implications)
+    })
   }
   
   invisible(x)

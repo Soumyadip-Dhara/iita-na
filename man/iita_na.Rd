@@ -10,8 +10,9 @@ iita_na(dataset, v = NULL, selrule = "minimal")
 \item{dataset}{A binary data matrix or data frame where rows represent subjects
 and columns represent items. Entries should be 0, 1, or NA (missing).}
 
-\item{v}{A vector of competing quasi-orders to test. If NULL (default), all
-possible quasi-orders are generated.}
+\item{v}{A list of quasi-order matrices to test. Each matrix should be a binary
+matrix of size ni x ni where ni is the number of items. If NULL (default), 
+all possible quasi-orders are generated automatically.}
 
 \item{selrule}{Selection rule for choosing quasi-orders. Options are:
 "minimal" (default) selects quasi-orders with minimal diff values,

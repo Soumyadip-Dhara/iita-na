@@ -60,6 +60,20 @@ test_that("iita_na validates input", {
   # Non-matrix input should be handled
   data <- data.frame(x = c(0, 1), y = c(0, 1))
   expect_silent(iita_na(data))
+  
+  # Invalid v parameter - numeric scalar
+  data <- matrix(c(0, 1, 0, 1), ncol = 2)
+  expect_error(iita_na(data, v = 1), "v must be NULL or a list")
+  
+  # Invalid v parameter - list of non-matrices
+  expect_error(iita_na(data, v = list(1, 2)), "list of matrices")
+  
+  # Invalid v parameter - wrong dimensions
+  expect_error(iita_na(data, v = list(matrix(0, 3, 3))), "dimensions matching")
+  
+  # Valid v parameter - list of matrices
+  v_valid <- list(matrix(0, nrow = 2, ncol = 2))
+  expect_silent(iita_na(data, v = v_valid))
 })
 
 test_that("compute_diff_na handles missing data correctly", {
