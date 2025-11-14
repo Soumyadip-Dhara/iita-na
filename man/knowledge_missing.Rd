@@ -29,7 +29,7 @@ Each entry is 0 (item failed), 1 (item passed), or NA (missing).
 }
 \examples{
 data(knowledge_missing)
-result <- iita(knowledge_missing)
+result <- iita_na(knowledge_missing)
 print(result)
 }
 \keyword{datasets}

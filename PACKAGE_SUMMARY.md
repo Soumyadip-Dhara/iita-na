@@ -17,10 +17,10 @@ The `iita.na` package implements Inductive Item Tree Analysis (IITA) with full s
 - **Selection Rules**: Supports both "minimal" and "corrected" selection procedures
 
 ### Functions Provided
-1. `iita(dataset, v = NULL, selrule = "minimal")` - Main analysis function
+1. `iita_na(dataset, v = NULL, selrule = "minimal")` - Main analysis function
 2. `generate_quasiorders(ni)` - Generate competing quasi-order structures
 3. `compute_diff_na(dataset, quasiorder)` - Compute diff values with missing data handling
-4. `print.iita(x, ...)` - S3 print method for IITA results
+4. `print.iita_na(x, ...)` - S3 print method for IITA results
 
 ### Example Datasets
 - `knowledge_complete` - 20 subjects × 5 items (no missing data)
@@ -103,7 +103,7 @@ data <- matrix(c(
   1, 1, 1
 ), ncol = 3, byrow = TRUE)
 
-result <- iita(data)
+result <- iita_na(data)
 print(result)
 
 # Example 2: Missing data
@@ -114,12 +114,12 @@ data_na <- matrix(c(
   1, 1, 1
 ), ncol = 3, byrow = TRUE)
 
-result_na <- iita(data_na)
+result_na <- iita_na(data_na)
 print(result_na)
 
 # Example 3: Using example datasets
 data(knowledge_missing)
-result <- iita(knowledge_missing, selrule = "corrected")
+result <- iita_na(knowledge_missing, selrule = "corrected")
 print(result)
 ```
 

@@ -19,7 +19,7 @@ data <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # Run IITA analysis
-result <- iita(data)
+result <- iita_na(data)
 print(result)
 
 # Access specific results
@@ -40,7 +40,7 @@ data_missing <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # Run IITA analysis - missing values handled automatically
-result_missing <- iita(data_missing)
+result_missing <- iita_na(data_missing)
 print(result_missing)
 
 # The algorithm uses pairwise deletion for missing data
@@ -62,7 +62,7 @@ head(knowledge_complete)
 dim(knowledge_complete)  # 20 subjects, 5 items
 
 # Run IITA
-result <- iita(knowledge_complete)
+result <- iita_na(knowledge_complete)
 
 # View selected quasi-orders
 for (i in seq_along(result$selection.set.index)) {
@@ -93,11 +93,11 @@ cat("Proportion missing:",
     round(mean(is.na(knowledge_missing)) * 100, 1), "%\n")
 
 # Run IITA with missing data
-result_missing <- iita(knowledge_missing)
+result_missing <- iita_na(knowledge_missing)
 
 # Compare with complete data results
 data(knowledge_complete)
-result_complete <- iita(knowledge_complete)
+result_complete <- iita_na(knowledge_complete)
 
 cat("\nComparison:\n")
 cat("Complete data - selected quasi-orders:", 
@@ -117,12 +117,12 @@ library(iita.na)
 data(knowledge_complete)
 
 # Minimal selection rule (default)
-result_minimal <- iita(knowledge_complete, selrule = "minimal")
+result_minimal <- iita_na(knowledge_complete, selrule = "minimal")
 cat("Minimal rule selected:", length(result_minimal$selection.set.index), 
     "quasi-orders\n")
 
 # Corrected selection rule (more permissive)
-result_corrected <- iita(knowledge_complete, selrule = "corrected")
+result_corrected <- iita_na(knowledge_complete, selrule = "corrected")
 cat("Corrected rule selected:", length(result_corrected$selection.set.index), 
     "quasi-orders\n")
 ```
@@ -138,7 +138,7 @@ cat("Generated", length(qos), "quasi-orders\n")
 data <- matrix(rbinom(30, 1, 0.6), ncol = 3)
 
 # Test specific quasi-orders
-result <- iita(data, v = qos)
+result <- iita_na(data, v = qos)
 print(result)
 ```
 
@@ -203,7 +203,7 @@ test_data[missing_mask] <- NA
 colnames(test_data) <- paste0("Q", 1:n_items)
 
 # Analyze the prerequisite structure
-result <- iita(test_data, selrule = "corrected")
+result <- iita_na(test_data, selrule = "corrected")
 
 # Display results
 cat("\nTest Analysis Results\n")
@@ -243,7 +243,7 @@ if (length(result$selection.set.index) > 0) {
 **Solution**: Use the "corrected" selection rule, which is more conservative, or collect more data to reduce ambiguity.
 
 ```r
-result <- iita(data, selrule = "corrected")
+result <- iita_na(data, selrule = "corrected")
 ```
 
 ### Issue: All data is missing for some items

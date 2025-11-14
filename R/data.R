@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' data(knowledge_complete)
-#' result <- iita(knowledge_complete)
+#' result <- iita_na(knowledge_complete)
 #' print(result)
 "knowledge_complete"
 
@@ -42,6 +42,6 @@
 #'
 #' @examples
 #' data(knowledge_missing)
-#' result <- iita(knowledge_missing)
+#' result <- iita_na(knowledge_missing)
 #' print(result)
 "knowledge_missing"

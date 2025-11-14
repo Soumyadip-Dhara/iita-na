@@ -146,7 +146,7 @@ data <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # Run IITA analysis
-result <- iita(data)
+result <- iita_na(data)
 
 # Expected behavior (matches DAKS):
 # - Best quasi-order should be: 1→2→3 (linear chain)
@@ -186,7 +186,7 @@ data <- matrix(c(
   1, 1, 1
 ), ncol = 3, byrow = TRUE)
 
-result <- iita(data)
+result <- iita_na(data)
 
 # Expected: diff > 0 to reflect the violation
 # This matches DAKS behavior
@@ -204,7 +204,7 @@ data(knowledge_complete)
 stopifnot(sum(is.na(knowledge_complete)) == 0)
 
 # Run IITA
-result <- iita(knowledge_complete)
+result <- iita_na(knowledge_complete)
 
 # Results should match DAKS exactly:
 # - Same diff values for all quasi-orders
@@ -323,7 +323,7 @@ test_data <- matrix(c(
 
 # Run both implementations
 result_daks <- DAKS::iita(test_data)
-result_iita_na <- iita.na::iita(test_data)
+result_iita_na <- iita.na::iita_na(test_data)
 
 # Compare results
 all.equal(result_daks$diff, result_iita_na$diff)

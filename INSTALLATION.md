@@ -44,7 +44,7 @@ library(iita.na)
 
 # Test with example data
 data(knowledge_complete)
-result <- iita(knowledge_complete)
+result <- iita_na(knowledge_complete)
 print(result)
 ```
 
