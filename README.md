@@ -86,7 +86,7 @@ When computing the diff value (discrepancy between data and quasi-order):
 
 ## Output Structure
 
-The `iita` function returns a list with:
+The `iita_na` function returns a list with:
 - `diff`: Vector of diff values for each quasi-order
 - `selection.set.index`: Indices of selected quasi-orders
 - `implications`: List of implications (prerequisite relations) for selected quasi-orders
@@ -94,6 +94,21 @@ The `iita` function returns a list with:
 - `ni`: Number of items
 - `nq`: Number of quasi-orders
 - `error.rate`: Error rates for each quasi-order
+
+### Understanding Multiple Selected Quasi-Orders
+
+It's common for IITA to select multiple quasi-orders, especially with small datasets or perfect hierarchical structures. This happens because:
+
+1. **Relations not in a quasi-order are not tested**: A quasi-order with fewer relations doesn't create violations for relations it doesn't specify
+2. **Multiple structures can fit equally well**: When data is perfectly hierarchical, both minimal and more complex structures may have diff=0
+3. **This is standard IITA behavior**: The algorithm correctly identifies all quasi-orders that fit the data equally well
+
+For example, with data showing a perfect chain 1→2→3:
+- The empty quasi-order (no relations) has diff=0 because it makes no claims to violate
+- Single relations like 1→2 have diff=0 because this relation isn't violated
+- The complete chain 1→2→3 also has diff=0 because all relations hold
+
+This is not a bug but a feature - it shows you all structures that are consistent with your data. You can then choose among them based on theoretical considerations or examine the most complex selected structure (typically the one with most relations).
 
 ## DAKS Compatibility
 

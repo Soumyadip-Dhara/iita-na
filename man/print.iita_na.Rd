@@ -12,5 +12,7 @@
 \item{...}{Additional arguments (not used)}
 }
 \description{
-Print Method for IITA Objects
+Prints a summary of the IITA analysis results. When multiple quasi-orders
+are selected, it displays the most complex one (with the most relations)
+as a helpful starting point for interpretation.
 }

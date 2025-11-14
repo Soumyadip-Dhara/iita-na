@@ -293,6 +293,10 @@ compute_diff_na <- function(dataset, quasiorder) {
 
 #' Print Method for IITA Objects
 #'
+#' Prints a summary of the IITA analysis results. When multiple quasi-orders
+#' are selected, it displays the most complex one (with the most relations)
+#' as a helpful starting point for interpretation.
+#'
 #' @param x An object of class "iita_na"
 #' @param ... Additional arguments (not used)
 #'
@@ -322,6 +326,23 @@ print.iita_na <- function(x, ...) {
     }
   } else {
     cat("Multiple quasi-orders selected. Use $implications to view.\n")
+    
+    # Show the most complex selected quasi-order as a suggestion
+    complexities <- sapply(x$implications, sum)
+    most_complex_idx <- which.max(complexities)
+    if (complexities[most_complex_idx] > 0) {
+      cat("\nMost complex selected quasi-order (index", 
+          x$selection.set.index[most_complex_idx], 
+          ") with", complexities[most_complex_idx], "relations:\n")
+      qo <- x$implications[[most_complex_idx]]
+      for (i in 1:nrow(qo)) {
+        for (j in 1:ncol(qo)) {
+          if (qo[i, j] == 1) {
+            cat(sprintf("  Item %d -> Item %d\n", i, j))
+          }
+        }
+      }
+    }
   }
   
   invisible(x)
